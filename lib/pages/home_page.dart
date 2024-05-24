@@ -17,7 +17,16 @@ class HomePage extends StatelessWidget {
         width: _deviceWidth,
         padding: EdgeInsets.symmetric(
             horizontal: _deviceWidth * 0.05, vertical: _deviceHeight * 0.05),
-        child: Center(child: _destinationDropDown()),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _pageTitle(),
+            _imageWidget(),
+            _destinationDropDown(),
+          ],
+        ),
       )),
     );
   }
@@ -32,30 +41,39 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _imageWidget() {
-    return Container(
-      decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("assets/p.jpg"), fit: BoxFit.contain)),
+    return Image.asset(
+      "assets/p.jpg",
+      height: 100,
+      width: 100,
     );
   }
 
   Widget _destinationDropDown() {
-    List<DropdownMenuItem> items =
-        ["Volmir", "Star Station", "Moon Station"].map((e) {
-      return DropdownMenuItem(
-        value: e,
-        child: Text(e),
-      );
-    }).toList();
-    return DropdownButton(
-      borderRadius: const BorderRadius.all(Radius.elliptical(5, 5)),
-      iconEnabledColor: Colors.white,
-      items: items,
-      onChanged: (_) {},
-      dropdownColor: Colors.blue.shade200,
-      hint: const Text(
-        "Select",
-        style: TextStyle(color: Colors.white),
+    List<String> items = ["Volmir", "Star Station", "Moon Station"];
+
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: _deviceWidth * 0.05),
+      width: _deviceWidth,
+      decoration: BoxDecoration(
+        color: const Color.fromRGBO(52, 52, 52, 1.0),
+        borderRadius: BorderRadius.circular(
+          10,
+        ),
+      ),
+      child: DropdownButton(
+        borderRadius: const BorderRadius.all(Radius.elliptical(5, 5)),
+        iconEnabledColor: Colors.white,
+        underline: Container(),
+        value: items.first,
+        style: const TextStyle(color: Colors.white),
+        items: items.map((e) {
+          return DropdownMenuItem(
+            value: e,
+            child: Text(e),
+          );
+        }).toList(),
+        onChanged: (_) {},
+        dropdownColor: const Color.fromRGBO(53, 53, 53, 1.0),
       ),
     );
   }
