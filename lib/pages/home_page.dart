@@ -1,3 +1,4 @@
+import 'package:five_day_flutter/widgets/custom_dropDownButton.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -24,7 +25,7 @@ class HomePage extends StatelessWidget {
           children: [
             _pageTitle(),
             _imageWidget(),
-            _destinationDropDown(),
+            _bookaRide(),
           ],
         ),
       )),
@@ -40,41 +41,75 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  Widget _rideButton() {
+    return Container(
+      margin: EdgeInsets.only(bottom: _deviceHeight * 0.005),
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(10)),
+      width: _deviceWidth,
+      child: MaterialButton(
+        onPressed: () {},
+        child: const Text(
+          "Book a Ride!!",
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
+    );
+  }
+
+  Widget _bookaRide() {
+    return Container(
+      height: _deviceHeight * 0.22,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _destinationDropDown(),
+          _travellersInformation(),
+          _rideButton(),
+        ],
+      ),
+    );
+  }
+
   Widget _imageWidget() {
-    return Image.asset(
-      "assets/p.jpg",
-      height: 100,
-      width: 100,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Image.asset(
+          "assets/p.jpg",
+          //height: 100,
+          width: 300,
+        ),
+      ],
     );
   }
 
   Widget _destinationDropDown() {
-    List<String> items = ["Volmir", "Star Station", "Moon Station"];
-
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: _deviceWidth * 0.05),
+    return CustomDropdownbutton(
       width: _deviceWidth,
-      decoration: BoxDecoration(
-        color: const Color.fromRGBO(52, 52, 52, 1.0),
-        borderRadius: BorderRadius.circular(
-          10,
+      values: const ["Volmir", "Star Station", "Moon Station"],
+    );
+  }
+
+  Widget _travellersInformation() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        CustomDropdownbutton(
+          width: _deviceWidth * 0.44,
+          values: const ["1", "2", "3", "4"],
         ),
-      ),
-      child: DropdownButton(
-        borderRadius: const BorderRadius.all(Radius.elliptical(5, 5)),
-        iconEnabledColor: Colors.white,
-        underline: Container(),
-        value: items.first,
-        style: const TextStyle(color: Colors.white),
-        items: items.map((e) {
-          return DropdownMenuItem(
-            value: e,
-            child: Text(e),
-          );
-        }).toList(),
-        onChanged: (_) {},
-        dropdownColor: const Color.fromRGBO(53, 53, 53, 1.0),
-      ),
+        CustomDropdownbutton(
+          width: _deviceWidth * 0.4,
+          values: const ["Economy", "Business", "First", "Private"],
+        ),
+      ],
     );
   }
 }
