@@ -1,7 +1,9 @@
-import 'package:five_day_flutter/pages/home_page.dart';
+import 'package:five_day_flutter/project_2/pages/taskly.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter("hive_boxes");
   runApp(const MyApp());
 }
 
@@ -11,10 +13,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Moon",
-      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          scaffoldBackgroundColor: const Color.fromARGB(255, 0, 0, 0)),
-      home: HomePage(),
+        primaryColor: Colors.red,
+        appBarTheme: const AppBarTheme(
+          color: Colors.red,
+        ),
+      ),
+      debugShowCheckedModeBanner: false,
+      home: Taskly(),
     );
   }
 }

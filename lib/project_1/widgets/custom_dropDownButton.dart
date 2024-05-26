@@ -4,7 +4,7 @@ class CustomDropdownbutton extends StatelessWidget {
   List<String> values;
   double width;
 
-  CustomDropdownbutton({required this.width, required this.values});
+  CustomDropdownbutton({super.key, required this.width, required this.values});
 
   @override
   Widget build(BuildContext context) {
