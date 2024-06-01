@@ -12,6 +12,7 @@ class Taskly extends StatefulWidget {
 }
 
 class _TasklyState extends State<Taskly> {
+  String? _newTaskContent;
   _TasklyState();
 
   late double _deviceHeight, _deviceWidth;
@@ -36,15 +37,32 @@ class _TasklyState extends State<Taskly> {
 
   Widget _floatingButton() {
     return FloatingActionButton(
-      onPressed: () {
-        print("PRESSED BUTTON");
-      },
+      onPressed: _displayTaskPopup,
       backgroundColor: Colors.redAccent,
-      shape: StadiumBorder(),
+      shape: const StadiumBorder(),
       child: const Icon(
         Icons.add,
         color: Colors.white,
       ),
+    );
+  }
+
+  void _displayTaskPopup() {
+    showDialog(
+      context: context,
+      builder: (BuildContext _context) {
+        return AlertDialog(
+          title: const Text('Add New Task'),
+          content: TextField(
+            onSubmitted: (_value) {},
+            onChanged: (_value) {
+              setState(() {
+                _newTaskContent = _value;
+              });
+            },
+          ),
+        );
+      },
     );
   }
 
