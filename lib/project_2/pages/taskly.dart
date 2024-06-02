@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class Taskly extends StatefulWidget {
   const Taskly({super.key});
@@ -14,6 +15,11 @@ class Taskly extends StatefulWidget {
 class _TasklyState extends State<Taskly> {
   String? _newTaskContent;
   _TasklyState();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   late double _deviceHeight, _deviceWidth;
 
@@ -30,7 +36,7 @@ class _TasklyState extends State<Taskly> {
         ),
         toolbarHeight: _deviceHeight * 0.15,
       ),
-      body: _taskList(),
+      body: _taskView(),
       floatingActionButton: _floatingButton(),
     );
   }
@@ -62,6 +68,23 @@ class _TasklyState extends State<Taskly> {
             },
           ),
         );
+      },
+    );
+  }
+
+  Widget _taskView() {
+    return FutureBuilder(
+      future: Hive.openBox('tasks'),
+      builder: (BuildContext _context, AsyncSnapshot _snapshot) {
+        if (_snapshot.connectionState == ConnectionState.done) {
+          return _taskList();
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.red,
+            ),
+          );
+        }
       },
     );
   }
